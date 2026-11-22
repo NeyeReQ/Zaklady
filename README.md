@@ -11,6 +11,7 @@ Ciemny panel operatora w stylistyce Launchera Kwadratowy Chaos. Służy do ręcz
 ## Funkcje
 
 - Ręczne dodawanie nicku gracza, stawki i wybranej drużyny.
+- Własne nazwy Team 1 i Team 2 — zmieniasz je w panelu kursów; nazwy zapisują się w rundzie i pojawiają się na kuponach, kursach oraz w rozliczeniu.
 - Lista wszystkich wpisanych kuponów z wyszukiwarką graczy.
 - Dynamiczne kursy puli, aktualizowane po każdej zmianie stawek.
 - Konfigurowalna prowizja operatora (domyślnie 10%).
