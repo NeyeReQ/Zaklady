@@ -365,7 +365,14 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
 @media(max-width:900px){.sidebar{width:68px;flex-basis:68px;padding:22px 9px}.brand{justify-content:center;padding-left:3px;padding-right:3px}.brand-mark{width:40px;height:40px}.workspace{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.topbar{height:58px;padding:0 14px}.local-pill{display:none}.content{padding:21px 12px 28px}.hero{padding:18px}.hero:after{width:110px;height:110px;right:8%;top:20px}.hero-right{width:100%}.hero-vs{gap:6px}.team-mini{min-width:66px}.hero-kicker{font-size:8px}.match-title{font-size:19px}.hero-desc{font-size:7px}.metrics{gap:8px}.metric{padding:12px}.metric-value{font-size:19px}.panel-head,.panel-body{padding:14px}.form-grid{grid-template-columns:1fr 1fr}.form-grid .nick-field,.form-grid .submit-field{grid-column:1/-1}.form-grid .submit-field .btn{width:100%}.team-card{padding:10px}.odds{font-size:23px}.footer{font-size:7px;line-height:1.8}}
 
-  </style>
+  
+.team-name-editor{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px;padding:12px;border:1px solid #a879ff20;background:#a879ff08;border-radius:10px}
+.team-name-editor .field input{height:36px;background:#0b0b14;border-color:#ffffff20;color:#eee8f7;font-size:10px}
+.team-name-editor .field input:disabled{opacity:.55;cursor:not-allowed}
+.team-name-editor .field input::placeholder{color:#696579}
+.team-name-editor .field label{font-size:8px;letter-spacing:1px}
+@media(max-width:620px){.team-name-editor{gap:8px;padding:10px}.team-name-editor .field input{padding:0 8px}}
+</style>
 </head>
 <body>
   <div class="layout">
@@ -419,9 +426,9 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
           </div>
           <div class="hero-right">
             <div class="hero-vs">
-              <div class="team-mini blue">TEAM 1</div>
+              <div class="team-mini blue" id="heroTeam1">TEAM 1</div>
               <div class="vs">VS</div>
-              <div class="team-mini orange">TEAM 2</div>
+              <div class="team-mini orange" id="heroTeam2">TEAM 2</div>
             </div>
             <div id="statusBadge" class="status-badge"><span class="status-dot"></span> Przyjmowanie</div>
           </div>
@@ -520,15 +527,19 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
                 <span class="odds-live-label">DECIMAL ODDS</span>
               </div>
               <div class="panel-body">
+                <div class="team-name-editor">
+                  <div class="field"><label for="teamName1">NAZWA DRUŻYNY 1</label><input id="teamName1" type="text" maxlength="24" value="TEAM 1" placeholder="np. Niebiescy"></div>
+                  <div class="field"><label for="teamName2">NAZWA DRUŻYNY 2</label><input id="teamName2" type="text" maxlength="24" value="TEAM 2" placeholder="np. Czerwoni"></div>
+                </div>
                 <div class="team-cards">
                   <div class="team-card t1">
-                    <div class="team-card-top"><div class="team-name t1">TEAM 1</div><div class="team-share" id="share1">0%</div></div>
+                    <div class="team-card-top"><div class="team-name t1" id="teamTitle1">TEAM 1</div><div class="team-share" id="share1">0%</div></div>
                     <div class="odds" id="odds1">—</div><div class="odds-caption">mnożnik wypłaty</div>
                     <div class="bar-track"><div class="bar-fill t1" id="bar1" style="width:0%"></div></div>
                     <div class="team-card-bottom"><div><div class="team-stat-label">Stawki</div><div class="team-stat-value" id="teamTotal1">0</div></div><div style="text-align:right"><div class="team-stat-label">Zwrot za 100</div><div class="team-stat-value" id="teamReturn1">—</div></div></div>
                   </div>
                   <div class="team-card t2">
-                    <div class="team-card-top"><div class="team-name t2">TEAM 2</div><div class="team-share" id="share2">0%</div></div>
+                    <div class="team-card-top"><div class="team-name t2" id="teamTitle2">TEAM 2</div><div class="team-share" id="share2">0%</div></div>
                     <div class="odds" id="odds2">—</div><div class="odds-caption">mnożnik wypłaty</div>
                     <div class="bar-track"><div class="bar-fill t2" id="bar2" style="width:0%"></div></div>
                     <div class="team-card-bottom"><div><div class="team-stat-label">Stawki</div><div class="team-stat-value" id="teamTotal2">0</div></div><div style="text-align:right"><div class="team-stat-label">Zwrot za 100</div><div class="team-stat-value" id="teamReturn2">—</div></div></div>
@@ -595,6 +606,7 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
       id: "round-" + Date.now() + "-" + Math.floor(Math.random() * 100000),
       number: number,
       title: "Pojedynek PvP #" + String(number).padStart(3, "0"),
+      teamNames: { 1: "TEAM 1", 2: "TEAM 2" },
       status: "open",
       feePercent: 10,
       bets: [],
@@ -615,6 +627,8 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
         if (parsed && parsed.current && Array.isArray(parsed.history)) {
           parsed.nextNumber = Number(parsed.nextNumber) || 2;
           parsed.current.bets = Array.isArray(parsed.current.bets) ? parsed.current.bets : [];
+          parsed.current.teamNames = parsed.current.teamNames || { 1: "TEAM 1", 2: "TEAM 2" };
+          parsed.history = parsed.history.map(function (round) { round.teamNames = round.teamNames || { 1: "TEAM 1", 2: "TEAM 2" }; return round; });
           return parsed;
         }
       }
@@ -635,6 +649,11 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
   }
 
   function current() { return state.current; }
+  function teamName(team, round) {
+    var names = (round || current()).teamNames || {};
+    var value = names[team];
+    return String(value || ("TEAM " + team)).trim() || ("TEAM " + team);
+  }
   function sumTeam(team) {
     return current().bets.reduce(function (sum, bet) { return sum + (bet.team === team ? bet.amount : 0); }, 0);
   }
@@ -693,6 +712,18 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
     var fee = r.status === "settled" ? r.commission : (r.status === "void" ? 0 : commission());
 
     document.getElementById("roundTitle").value = r.title || "";
+    r.teamNames = r.teamNames || { 1: "TEAM 1", 2: "TEAM 2" };
+    document.getElementById("teamName1").value = teamName(1);
+    document.getElementById("teamName2").value = teamName(2);
+    document.getElementById("teamName1").disabled = r.status !== "open";
+    document.getElementById("teamName2").disabled = r.status !== "open";
+    setText("heroTeam1", teamName(1));
+    setText("heroTeam2", teamName(2));
+    setText("teamTitle1", teamName(1));
+    setText("teamTitle2", teamName(2));
+    var teamSelect = document.getElementById("betTeam");
+    teamSelect.options[0].textContent = teamName(1);
+    teamSelect.options[1].textContent = teamName(2);
     var badge = document.getElementById("statusBadge");
     badge.className = "status-badge" + (r.status === "closed" ? " closed" : r.status === "settled" ? " settled" : r.status === "void" ? " void" : "");
     badge.innerHTML = '<span class="status-dot"></span>' + esc(statusLabel(r.status));
@@ -763,7 +794,7 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
       }
       return '<tr>' +
         '<td><div class="player-cell"><div class="avatar">' + esc(shortName(bet.nick)) + '</div><span class="player-name">' + esc(bet.nick) + '</span></div></td>' +
-        '<td><span class="team-tag ' + (bet.team === 1 ? "t1" : "t2") + '"><span class="team-dot"></span>TEAM ' + bet.team + '</span></td>' +
+        '<td><span class="team-tag ' + (bet.team === 1 ? "t1" : "t2") + '"><span class="team-dot"></span>' + esc(teamName(bet.team)) + '</span></td>' +
         '<td class="amount">' + fmt(bet.amount) + '</td>' +
         '<td class="amount">' + projectedText + '</td>' +
         '<td>' + (r.status === "open" ? '<button class="remove-btn" type="button" data-remove="' + esc(bet.id) + '" title="Usuń kupon" aria-label="Usuń kupon">×</button>' : "") + '</td>' +
@@ -791,8 +822,8 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
       var t1 = sumTeam(1), t2 = sumTeam(2);
       body.innerHTML = '<div class="settle-status">Przyjmowanie zakładów jest zakończone. Wybierz zwycięską drużynę, aby obliczyć wypłaty dla każdego gracza.</div>' +
         '<div class="winner-choice">' +
-          '<button class="winner-btn t1 ' + (selectedWinner === 1 ? "selected" : "") + '" type="button" data-winner="1">TEAM 1 · ' + fmt(t1) + '</button>' +
-          '<button class="winner-btn t2 ' + (selectedWinner === 2 ? "selected" : "") + '" type="button" data-winner="2">TEAM 2 · ' + fmt(t2) + '</button>' +
+          '<button class="winner-btn t1 ' + (selectedWinner === 1 ? "selected" : "") + '" type="button" data-winner="1">' + esc(teamName(1)) + ' · ' + fmt(t1) + '</button>' +
+          '<button class="winner-btn t2 ' + (selectedWinner === 2 ? "selected" : "") + '" type="button" data-winner="2">' + esc(teamName(2)) + ' · ' + fmt(t2) + '</button>' +
         '</div>' +
         '<div class="settle-actions"><button class="btn btn-primary" id="settleNow" type="button" ' + (!selectedWinner || (selectedWinner === 1 ? t1 === 0 : t2 === 0) ? "disabled" : "") + '>✓ Rozlicz zwycięzców</button><button class="btn btn-danger" id="voidRound" type="button">Anuluj i zwróć stawki</button></div>' +
         '<div class="hint"><span>i</span><div>Wypłata zawiera zwrot stawki. Gdy wybrana drużyna nie ma żadnych zakładów, rozliczenie nie jest możliwe — użyj zwrotu stawek.</div></div>';
@@ -803,7 +834,7 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
       if (settle) settle.addEventListener("click", settleRound);
       document.getElementById("voidRound").addEventListener("click", voidRound);
     } else if (r.status === "settled") {
-      body.innerHTML = '<div class="success-box"><strong>✓ Pojedynek rozliczony.</strong><br>Zwyciężył TEAM ' + r.winner + '. Wypłaty zostały wyliczone i zapisane w historii.</div>' +
+      body.innerHTML = '<div class="success-box"><strong>✓ Pojedynek rozliczony.</strong><br>Zwyciężyła drużyna ' + esc(teamName(r.winner)) + '. Wypłaty zostały wyliczone i zapisane w historii.</div>' +
         '<div class="calc-row"><span>Prowizja operatora</span><strong>' + fmt(r.commission) + ' monet</strong></div>' +
         '<div class="calc-row"><span>Wypłacono zwycięzcom</span><strong>' + fmt(r.payoutPool) + ' monet</strong></div>' +
         '<button class="btn btn-primary" id="newRoundInline" type="button">＋ Utwórz następny pojedynek</button>';
@@ -831,7 +862,7 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
       document.getElementById("settlementNote").textContent = "Anulowano bez prowizji. Wszystkie stawki zostały zsumowane do zwrotu według nicku.";
     } else {
       document.getElementById("payoutSubtitle").textContent = "Końcowa lista wypłat · " + fmtDate(r.settledAt);
-      document.getElementById("payoutWinner").textContent = "TEAM " + r.winner;
+      document.getElementById("payoutWinner").textContent = teamName(r.winner);
       document.getElementById("payoutTotal").textContent = fmt(r.payoutPool) + " monet";
       document.getElementById("settlementNote").textContent = "Prowizja: " + fmt(r.commission) + " monet. Suma wypłat jest zgodna z pulą po prowizji. Wypłaty zaokrąglono do pełnych monet, a pozostałe monety rozdzielono metodą największych reszt.";
     }
@@ -852,7 +883,7 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
     document.getElementById("historyEmpty").classList.toggle("hidden", history.length > 0);
     list.innerHTML = history.map(function (r) {
       var total = (r.bets || []).reduce(function (sum, b) { return sum + b.amount; }, 0);
-      var label = r.status === "settled" ? "Wygrał Team " + r.winner : "Zwrot stawek";
+      var label = r.status === "settled" ? "Wygrał " + teamName(r.winner, r) : "Zwrot stawek";
       var date = fmtDate(r.settledAt || r.createdAt);
       return '<div class="history-item"><div class="history-main"><div class="history-title">' + esc(r.title || "Pojedynek") + '</div><div class="history-meta">' + esc(date) + ' · ' + (r.bets || []).length + ' kuponów · pula ' + fmt(total) + '</div></div><div class="history-result"><strong>' + esc(label) + '</strong><span>' + (r.status === "settled" ? "Prowizja " + fmt(r.commission) : "Bez prowizji") + '</span></div></div>';
     }).join("");
@@ -949,7 +980,7 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
     var payouts = allocatePayouts(selectedWinner);
     var totalPaid = payouts.reduce(function (sum, row) { return sum + row.payout; }, 0);
     if (totalPaid !== payoutPool()) { showToast("Błąd kontroli sumy wypłat. Rozliczenie zostało przerwane.", true); return; }
-    if (!window.confirm("Rozliczyć pojedynek? Zwycięża TEAM " + selectedWinner + ". Do wypłaty: " + fmt(totalPaid) + " monet.")) return;
+    if (!window.confirm("Rozliczyć pojedynek? Zwycięża " + teamName(selectedWinner) + ". Do wypłaty: " + fmt(totalPaid) + " monet.")) return;
     r.status = "settled";
     r.winner = selectedWinner;
     r.payouts = payouts;
@@ -1019,7 +1050,10 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
           throw new Error("Nieprawidłowy format kopii.");
         }
         if (!window.confirm("Import zastąpi obecne dane w tej przeglądarce. Kontynuować?")) return;
-        state = { current: imported.current, history: Array.isArray(imported.history) ? imported.history : [], nextNumber: Math.max(2, Number(imported.nextNumber) || ((Number(imported.current.number) || 1) + 1)) };
+        imported.current.teamNames = imported.current.teamNames || { 1: "TEAM 1", 2: "TEAM 2" };
+        var importedHistory = Array.isArray(imported.history) ? imported.history : [];
+        importedHistory.forEach(function (round) { round.teamNames = round.teamNames || { 1: "TEAM 1", 2: "TEAM 2" }; });
+        state = { current: imported.current, history: importedHistory, nextNumber: Math.max(2, Number(imported.nextNumber) || ((Number(imported.current.number) || 1) + 1)) };
         selectedWinner = null;
         saveState();
         render();
@@ -1054,6 +1088,18 @@ th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacin
     saveState();
     render();
     showToast("Zaktualizowano prowizję do " + value + "%.");
+  });
+  ["teamName1", "teamName2"].forEach(function (id, index) {
+    document.getElementById(id).addEventListener("change", function (event) {
+      if (current().status !== "open") return;
+      var team = index + 1;
+      var value = event.target.value.trim().slice(0, 24) || "TEAM " + team;
+      current().teamNames = current().teamNames || { 1: "TEAM 1", 2: "TEAM 2" };
+      current().teamNames[team] = value;
+      saveState();
+      render();
+      showToast("Zmieniono nazwę drużyny " + team + " na „" + value + "”.");
+    });
   });
   document.getElementById("roundTitle").addEventListener("change", function (event) {
     if (current().status !== "open") return;
