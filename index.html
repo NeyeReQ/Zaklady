@@ -707,8 +707,13 @@
     }
     document.getElementById("betsEmpty").innerHTML = '<div class="empty-icon">＋</div><strong>Brak zakładów</strong><span>Dodaj pierwszy kupon, aby rozpocząć budowanie puli.</span>';
     table.innerHTML = filtered.map(function (bet) {
-      var projected = r.status === "settled" ? (r.winner === bet.team ? payoutForNick(bet.nick) : 0) : (multiplier(bet.team) === null ? null : Math.floor(bet.amount * multiplier(bet.team)));
-      var projectedText = r.status === "settled" ? (r.winner === bet.team ? "zob. wypłaty" : "przegrany") : (projected === null ? "—" : fmt(projected));
+      var projectedText;
+      if (r.status === "settled") projectedText = r.winner === bet.team ? "rozliczono" : "przegrany";
+      else if (r.status === "void") projectedText = "zwrócono";
+      else {
+        var projected = multiplier(bet.team) === null ? null : Math.floor(bet.amount * multiplier(bet.team));
+        projectedText = projected === null ? "—" : fmt(projected);
+      }
       return '<tr>' +
         '<td><div class="player-cell"><div class="avatar">' + esc(shortName(bet.nick)) + '</div><span class="player-name">' + esc(bet.nick) + '</span></div></td>' +
         '<td><span class="team-tag ' + (bet.team === 1 ? "t1" : "t2") + '"><span class="team-dot"></span>TEAM ' + bet.team + '</span></td>' +
@@ -794,7 +799,9 @@
   function renderHistory() {
     var list = document.getElementById("historyList");
     var history = state.history.slice(0, 12);
-    setText("historyCount", state.history.length + " rund");
+    if (current().status === "settled" || current().status === "void") history.unshift(current());
+    history = history.slice(0, 12);
+    setText("historyCount", history.length + " rund");
     document.getElementById("historyEmpty").classList.toggle("hidden", history.length > 0);
     list.innerHTML = history.map(function (r) {
       var total = (r.bets || []).reduce(function (sum, b) { return sum + b.amount; }, 0);
