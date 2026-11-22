@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111b2d">
+  <meta name="theme-color" content="#090912">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta name="description" content="Panel operatora do zarządzania zakładami PvP na serwerze Minecraft.">
   <title>Arena Desk — panel zakładów PvP</title>
   <style>
@@ -318,38 +321,82 @@
       .history-item { align-items: flex-start; }
       .footer { flex-direction: column; }
     }
+  
+:root {
+ color-scheme:dark; font-family:Manrope,"Segoe UI",sans-serif; color:#f4f2fb; background:#090912;
+ --navy:#0d0d17; --navy-2:#171426; --ink:#f4f2fb; --muted:#8a899d; --line:rgba(255,255,255,.075);
+ --paper:#141420; --canvas:#090912; --green:#a36cff; --green-dark:#c4a1ff; --green-soft:rgba(163,108,255,.13);
+ --blue:#a879ff; --blue-soft:rgba(163,108,255,.13); --orange:#e46cc7; --orange-soft:rgba(228,108,199,.12);
+ --red:#ef788b; --red-soft:rgba(239,120,139,.12); --shadow:0 16px 45px rgba(0,0,0,.20); --radius:14px;
+}
+*{scrollbar-color:#3b3154 #0d0c16}
+body{color:#f4f2fb;background:radial-gradient(ellipse at 77% -8%,rgba(122,71,180,.14),transparent 34%),radial-gradient(ellipse at 2% 70%,rgba(90,53,140,.07),transparent 30%),#090912;font-family:Manrope,"Segoe UI",sans-serif}
+.sidebar{background:linear-gradient(180deg,#0e0d18,#0b0b14);border-right:1px solid var(--line);box-shadow:8px 0 35px #0002}
+.brand{padding-bottom:35px;gap:13px}.brand-mark{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#aa74ff,#e45fc8);box-shadow:0 7px 24px #b65cff35;color:#fff;font-size:13px;font-weight:900;letter-spacing:-.8px;transform:rotate(-4deg)}
+.brand-name{color:#f6f1ff;font-size:11px;letter-spacing:1px}.brand-caption{color:#8e8da2;font:8px "DM Mono",monospace;letter-spacing:1.6px}
+.nav-label{color:#77768c;font:9px "DM Mono",monospace;letter-spacing:1.5px;padding-top:11px}
+.nav-item{color:#9b9aad;border:1px solid transparent;border-radius:10px;font-size:11px;font-weight:700;height:43px}.nav-item:hover{background:#ffffff08;color:#fff}.nav-item.active{background:linear-gradient(90deg,#a572ff21,#d966c310);border-color:#ac7cff30;color:#fff;box-shadow:none}.nav-item.active .nav-icon{color:#c59dff}
+.nav-count{color:#c6a4ff;background:#9e6bff1f;border-radius:6px;padding:4px 7px;font:9px "DM Mono",monospace}
+.side-note{border:1px solid #a879ff22;background:linear-gradient(145deg,#171326,#11111c);border-radius:13px;padding:14px}.side-note-title{color:#e2d7f5;font:9px "DM Mono",monospace;letter-spacing:1px}.side-note p{color:#89879a;font-size:9px;line-height:1.65}.side-bottom{color:#77768b;font:8px "DM Mono",monospace;letter-spacing:.8px}.build-label{margin-left:auto;border:1px solid #a779ff50;padding:3px 6px;border-radius:4px;color:#bb9aff}
+.topbar{height:70px;background:rgba(12,11,20,.88);border-bottom:1px solid var(--line);backdrop-filter:blur(12px);padding:0 34px}.crumb{color:#77768b;font:9px "DM Mono",monospace;letter-spacing:1.1px}.crumb strong{color:#d5cce6;font-weight:500}
+.local-pill{color:#a8a3b9;background:#ffffff06;border-color:#ffffff17;border-radius:8px;font:8px "DM Mono",monospace;letter-spacing:.7px}.local-dot{background:#68d8b1;box-shadow:0 0 10px #68d8b188}.icon-button{background:#ffffff06;color:#bcb2ce;border-color:#ffffff19}.icon-button:hover{background:#a879ff18;color:#e0caff;border-color:#a879ff45}
+.content{max-width:1600px;padding-top:29px}.eyebrow{color:#b48aff;font:9px "DM Mono",monospace;letter-spacing:1.35px}h1{color:#f7f3ff;font-size:27px;letter-spacing:-1px}.subheading{color:#8b899e;font-size:11px}
+.btn{border-radius:9px;font-size:10px;letter-spacing:.15px}.btn-primary{background:linear-gradient(100deg,#a36cff,#d75dc9);color:#fff;box-shadow:0 7px 22px #ab6cff33}.btn-primary:hover{background:linear-gradient(100deg,#b17cff,#e36ed4);box-shadow:0 10px 25px #b36aff49}.btn-dark{background:#201a31;border:1px solid #a879ff42;color:#ddc8ff}.btn-dark:hover{background:#2a2040}.btn-light{color:#c0b8ce;border-color:#ffffff1c;background:#ffffff06}.btn-light:hover{background:#ffffff0d;border-color:#a879ff45}.btn-danger{color:#f1a1ae;background:#ef788b12;border-color:#ef788b30}
+.hero{min-height:158px;border:1px solid #b28aff35;border-radius:16px;padding:24px 27px;margin-bottom:15px;background:radial-gradient(ellipse at 78% 48%,#7143a74f,transparent 38%),linear-gradient(110deg,#191429,#171226 50%,#24132d);box-shadow:0 20px 55px #0004}
+.hero:before{content:"";position:absolute;inset:0;opacity:.15;pointer-events:none;background-image:linear-gradient(#c9b6ff26 1px,transparent 1px),linear-gradient(90deg,#c9b6ff26 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(90deg,transparent,#000 48%,#000)}
+.hero:after{content:"";position:absolute;width:150px;height:150px;right:11%;top:2px;border:1px solid #d2afff4d;border-radius:24px;background:linear-gradient(135deg,#be91ff2e,#683b9917);box-shadow:0 0 0 17px #ffffff05,0 0 0 34px #ffffff03;transform:rotate(35deg);opacity:.85}
+.hero-kicker{color:#b5a7d2;font:9px "DM Mono",monospace;letter-spacing:1.4px}.match-title{font-size:23px;color:#fff;letter-spacing:-.7px}.match-title:focus{text-shadow:0 0 20px #c59dff30}.hero-desc{color:#aaa5bd;font:8px "DM Mono",monospace;letter-spacing:.8px}
+.team-mini{border:1px solid #ffffff21;background:#ffffff0e;border-radius:9px}.team-mini.blue{color:#d0b5ff}.team-mini.orange{color:#f0a7df}.vs{color:#8d819e;font:9px "DM Mono",monospace}
+.status-badge{border-radius:6px;padding:7px 9px;font:8px "DM Mono",monospace;letter-spacing:.7px;background:#5cdbab13;color:#8be4bf;border:1px solid #5cdbab2c}.status-badge.closed{background:#e6b36e12;color:#e9c28d;border-color:#e6b36e30}.status-badge.settled{background:#a879ff17;color:#ccb1ff;border-color:#a879ff35}.status-badge.void{background:#ffffff0b;color:#c5bfd1;border-color:#ffffff17}
+.metrics{gap:12px;margin-bottom:15px}.metric{background:linear-gradient(145deg,#141420,#10101a);border:1px solid #ffffff13;border-radius:12px;box-shadow:0 12px 35px #0002;padding:14px 16px}.metric-label{color:#828094;font:8px "DM Mono",monospace;letter-spacing:1px}.metric-icon{width:29px;height:29px;border-radius:9px}.metric-icon.green{background:#9f75ff20;color:#c7a6ff}.metric-icon.blue{background:#73dbe91a;color:#91e4ee}.metric-icon.orange{background:#ed70c51c;color:#f294d5}.metric-icon.gray{background:#ffffff0b;color:#b6a8d0}.metric-value{color:#f2edf9;font-size:22px;letter-spacing:-.8px}.metric-foot{color:#77768a;font:8px "DM Mono",monospace}
+.workspace{gap:15px}.stack{gap:14px}.panel{background:linear-gradient(145deg,#141420,#10101a);border:1px solid #ffffff13;border-radius:13px;box-shadow:0 14px 38px #0003}.panel-head{border-bottom:1px solid #ffffff10;padding:16px 18px 13px}.panel-title{color:#eee9f7;font-size:12px;letter-spacing:-.2px}.panel-sub{color:#828094;font:8px "DM Mono",monospace;letter-spacing:.2px}.panel-body{padding:17px 18px}
+.field label{color:#928da3;font:8px "DM Mono",monospace;letter-spacing:1px}.field input,.field select{color:#eee8f7;background:#0b0b14;border:1px solid #ffffff20;border-radius:8px;font-size:11px}.field input:focus,.field select:focus{background:#0d0c17;border-color:#a879ff88;box-shadow:0 0 0 3px #a36cff1a}.field input::placeholder{color:#635e72}.field select option{background:#141420;color:#eee8f7}
+.hint{color:#79768c;font-size:9px;line-height:1.6}.hint span{color:#c19bff}
+th{background:#ffffff07;color:#77758a;font:8px "DM Mono",monospace;letter-spacing:1px;border-top:0}td{color:#b8b1c7;border-top:1px solid #ffffff0e;font-size:10px}tbody tr:hover{background:#a879ff0d}
+.player-cell{gap:9px}.avatar{background:linear-gradient(145deg,#9e6bff2b,#dc6cc624);color:#d7bfff;border:1px solid #a879ff29;border-radius:8px}.player-name{color:#e7e1f0;font-weight:700}.amount{color:#f3ecff;font-weight:800}.muted-cell{color:#787489}.team-tag{border-radius:5px;font:8px "DM Mono",monospace;letter-spacing:.4px}.team-tag.t1{color:#cdb0ff;background:#a879ff18}.team-tag.t2{color:#f0a6de;background:#e46cc718}.remove-btn{color:#777489}.remove-btn:hover{color:#f29aa9;background:#ef788b15}
+.empty{color:#767387;padding:31px 16px}.empty-icon{background:#a879ff13;color:#ba95ff;border-radius:11px}.empty strong{color:#b9b1c7;font-size:10px}.empty span{color:#777489;font-size:9px}.search-input{color:#eee8f7;background:#0b0b14;border-color:#ffffff1c}.search-input::placeholder{color:#696579}.search-input:focus{border-color:#a879ff80}
+.team-card{background:linear-gradient(145deg,#171426,#12111d);border-radius:11px;border-color:#ffffff16}.team-card.t1{background:linear-gradient(145deg,#1b1730,#12111d);border-color:#a879ff35}.team-card.t2{background:linear-gradient(145deg,#241426,#12111d);border-color:#df72c733}.team-name{font:9px "DM Mono",monospace;letter-spacing:1px}.team-name.t1{color:#c5a2ff}.team-name.t2{color:#ef9bd8}.team-share,.odds-caption,.team-stat-label,.split-note{color:#79768b;font:8px "DM Mono",monospace}.odds{color:#f7f1ff;font-size:28px;letter-spacing:-1.3px}.team-card-bottom{border-top-color:#ffffff14}.team-stat-value{color:#ddd5e9;font:10px "DM Mono",monospace}.bar-track{background:#ffffff12}.bar-fill.t1{background:linear-gradient(90deg,#a36cff,#c08bff)}.bar-fill.t2{background:linear-gradient(90deg,#d75dc9,#ee8cd8)}.odds-live-label{color:#a994c9;font:8px "DM Mono",monospace;letter-spacing:1px}
+.calc-list{gap:12px}.calc-row{color:#89869b;font-size:10px}.calc-row strong{color:#e0d8eb;font:10px "DM Mono",monospace}.calc-row.total{border-top-color:#ffffff17}.calc-row.total span{color:#ddd5e9}.calc-row.total strong{color:#d1aaff;font-size:16px}.fee-control input{background:#0b0b14;color:#e6dcf4;border-color:#ffffff20;font:10px "DM Mono",monospace}.fee-control span{color:#767287}
+.warning{color:#e8c88e;background:#d69e3b0c;border-color:#d69e3b30}.success-box{color:#b7e8d2;background:#64d9b00c;border-color:#64d9b026}.winner-btn{background:#ffffff08;border-color:#ffffff20;color:#aaa3b8;border-radius:9px;font:9px "DM Mono",monospace;letter-spacing:.5px}.winner-btn.selected.t1{color:#d7beff;border-color:#a879ff70;background:#a879ff18}.winner-btn.selected.t2{color:#f3b5e3;border-color:#e46cc770;background:#e46cc718}
+.history{margin-top:15px}.history-item{background:#ffffff08;border-color:#ffffff11;border-radius:9px}.history-title{color:#ded7e9;font-size:10px}.history-meta,.history-result span{color:#777489;font:8px "DM Mono",monospace}.history-result strong{color:#cfc4df;font-size:10px}.footer{color:#706d82;font:8px "DM Mono",monospace;letter-spacing:.7px}
+.toast{background:#201a31;border:1px solid #a879ff45;color:#eee3ff;box-shadow:0 12px 35px #0007}.toast.error{background:#351b2b;border-color:#ef788b55}.payout-total{color:#d2adff}#payoutWinner{color:#d4b3ff!important;font:10px "DM Mono",monospace;letter-spacing:1px}#settlementNote{color:#c7b1ed;background:#a879ff0e;border-color:#a879ff28}
+#betsPanel .panel-head{background:linear-gradient(90deg,#ffffff08,transparent)}#entryPanel{border-color:#a879ff35}#entryPanel .panel-head{background:linear-gradient(90deg,#a879ff12,transparent 62%)}#settlementPanel .panel-head{background:linear-gradient(90deg,#e46cc70b,transparent 62%)}#historySection .panel-head{background:linear-gradient(90deg,#a879ff09,transparent 62%)}#addBetBtn{min-width:128px}
+@media(max-width:1120px){.sidebar{width:215px;flex-basis:215px}.content{padding-left:24px;padding-right:24px}.workspace{grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr)}}
+@media(max-width:900px){.sidebar{width:68px;flex-basis:68px;padding:22px 9px}.brand{justify-content:center;padding-left:3px;padding-right:3px}.brand-mark{width:40px;height:40px}.workspace{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.topbar{height:58px;padding:0 14px}.local-pill{display:none}.content{padding:21px 12px 28px}.hero{padding:18px}.hero:after{width:110px;height:110px;right:8%;top:20px}.hero-right{width:100%}.hero-vs{gap:6px}.team-mini{min-width:66px}.hero-kicker{font-size:8px}.match-title{font-size:19px}.hero-desc{font-size:7px}.metrics{gap:8px}.metric{padding:12px}.metric-value{font-size:19px}.panel-head,.panel-body{padding:14px}.form-grid{grid-template-columns:1fr 1fr}.form-grid .nick-field,.form-grid .submit-field{grid-column:1/-1}.form-grid .submit-field .btn{width:100%}.team-card{padding:10px}.odds{font-size:23px}.footer{font-size:7px;line-height:1.8}}
+
   </style>
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark">A</div>
+        <div class="brand-mark">KC</div>
         <div class="brand-copy">
-          <div class="brand-name">ARENA DESK</div>
-          <div class="brand-caption">PvP betting console</div>
+          <div class="brand-name">KWADRATOWY CHAOS</div>
+          <div class="brand-caption">ARENA CONTROL</div>
         </div>
       </div>
-      <div class="nav-label">Zarządzanie</div>
-      <button class="nav-item active" type="button" id="navDashboard"><span class="nav-icon">▦</span><span class="nav-text">Panel zakładów</span></button>
+      <div class="nav-label">CENTRUM ARENY</div>
+      <button class="nav-item active" type="button" id="navDashboard"><span class="nav-icon">▦</span><span class="nav-text">Panel zakładów</span><span class="nav-count">LIVE</span></button>
       <button class="nav-item" type="button" id="navHistory"><span class="nav-icon">◷</span><span class="nav-text">Historia rozliczeń</span></button>
-      <div class="nav-label" style="margin-top:18px">Narzędzia</div>
+      <div class="nav-label" style="margin-top:18px">DANE I ARCHIWUM</div>
       <button class="nav-item" type="button" id="exportBackup"><span class="nav-icon">⇩</span><span class="nav-text">Eksport kopii</span></button>
       <button class="nav-item" type="button" id="importBackupBtn"><span class="nav-icon">⇧</span><span class="nav-text">Import kopii</span></button>
       <input id="importFile" type="file" accept="application/json,.json" class="hidden">
       <div class="sidebar-spacer"></div>
       <div class="side-note">
-        <div class="side-note-title">Dane lokalne</div>
-        <p>Zakłady zapisują się w tej przeglądarce. Regularnie eksportuj kopię zapasową.</p>
+        <div class="side-note-title">TRYB RĘCZNY</div>
+        <p>Sam wpisujesz graczy i stawki. Panel liczy kursy oraz przygotowuje rozliczenie — bez połączenia z Minecraftem.</p>
       </div>
-      <div class="side-bottom">ARENA DESK · PANEL OPERATORA</div>
+      <div class="side-bottom">KC // ARENA CONTROL <span class="build-label">BETA</span></div>
     </aside>
 
     <main class="main">
       <header class="topbar">
-        <div class="crumb">Arena / <strong>Panel zakładów</strong></div>
+        <div class="crumb">KWADRATOWY CHAOS <span style="color:#5d5572">/</span> <strong>ARENA CONTROL</strong></div>
         <div class="top-actions">
-          <div class="local-pill"><span class="local-dot"></span> Zapis lokalny aktywny</div>
+          <div class="local-pill"><span class="local-dot"></span> TRYB RĘCZNY · ZAPIS LOKALNY</div>
           <button class="icon-button" id="topExport" type="button" title="Eksport kopii zapasowej" aria-label="Eksport kopii zapasowej">⇩</button>
         </div>
       </header>
@@ -357,18 +404,18 @@
       <div class="content">
         <div class="page-heading">
           <div>
-            <div class="eyebrow">Centrum operacyjne · Minecraft PvP</div>
-            <h1>Panel zakładów</h1>
-            <p class="subheading">Zarządzaj stawkami, obserwuj kursy i rozliczaj pojedynki w jednym miejscu.</p>
+            <div class="eyebrow">● KWADRATOWY CHAOS // CENTRUM PVP</div>
+            <h1>Centrum zakładów</h1>
+            <p class="subheading">Dodawaj graczy, kontroluj pulę i rozliczaj pojedynki. Wszystko pod Twoją kontrolą.</p>
           </div>
           <button class="btn btn-primary hidden" type="button" id="newRoundTop">＋ Nowy pojedynek</button>
         </div>
 
         <section class="hero">
           <div class="hero-copy">
-            <div class="hero-kicker">Aktualny pojedynek</div>
+            <div class="hero-kicker">◈ AKTYWNA ARENA · PANEL OPERATORA</div>
             <input id="roundTitle" class="match-title" type="text" maxlength="70" value="Pojedynek PvP #001" aria-label="Nazwa pojedynku">
-            <div class="hero-desc">Kursy dynamiczne · wspólna pula · automatyczne rozliczenie</div>
+            <div class="hero-desc">DYNAMICZNE KURSY <span style="color:#685b82">/</span> WSPÓLNA PULA <span style="color:#685b82">/</span> RĘCZNA OBSŁUGA</div>
           </div>
           <div class="hero-right">
             <div class="hero-vs">
@@ -387,19 +434,19 @@
             <div class="metric-foot">Suma wszystkich stawek</div>
           </div>
           <div class="metric">
-            <div class="metric-top"><div class="metric-label">Kupony</div><div class="metric-icon blue">▤</div></div>
+            <div class="metric-top"><div class="metric-label">Gracze</div><div class="metric-icon blue">▤</div></div>
             <div class="metric-value" id="metricBets">0</div>
-            <div class="metric-foot">Liczba przyjętych zakładów</div>
+            <div class="metric-foot">Unikalne nicki w tej rundzie</div>
           </div>
           <div class="metric">
             <div class="metric-top"><div class="metric-label">Prowizja</div><div class="metric-icon orange">%</div></div>
             <div class="metric-value" id="metricFee">0</div>
-            <div class="metric-foot">Przychód operatora z puli</div>
+            <div class="metric-foot">Prowizja z całej puli</div>
           </div>
           <div class="metric">
             <div class="metric-top"><div class="metric-label">Pula wypłat</div><div class="metric-icon gray">↗</div></div>
             <div class="metric-value" id="metricNet">0</div>
-            <div class="metric-foot">Kwota dla zwycięskiej strony</div>
+            <div class="metric-foot">Do podziału po prowizji</div>
           </div>
         </section>
 
@@ -407,7 +454,7 @@
           <div class="stack">
             <section class="panel" id="entryPanel">
               <div class="panel-head">
-                <div><h2 class="panel-title">Dodaj zakład</h2><div class="panel-sub">Wpisz nick, stawkę i wybierz drużynę</div></div>
+                <div><h2 class="panel-title">Dodaj gracza i stawkę</h2><div class="panel-sub">Ręcznie zarejestruj kupon na wybraną drużynę</div></div>
                 <span class="status-badge" id="entryState"><span class="status-dot"></span> OTWARTE</span>
               </div>
               <div class="panel-body">
@@ -434,7 +481,7 @@
 
             <section class="panel" id="betsPanel">
               <div class="panel-head">
-                <div><h2 class="panel-title">Lista zakładów</h2><div class="panel-sub">Wszystkie przyjęte kupony w tej rundzie</div></div>
+                <div><h2 class="panel-title">Gracze i ich zakłady</h2><div class="panel-sub">Pełna lista wpisanych nicków, drużyn i stawek</div></div>
                 <div class="search-row"><input class="search-input" id="betSearch" type="search" placeholder="Szukaj gracza…"><span class="muted-cell" id="betCount" style="font-size:10px">0</span></div>
               </div>
               <div class="table-wrap">
@@ -469,8 +516,8 @@
           <div class="stack">
             <section class="panel">
               <div class="panel-head">
-                <div><h2 class="panel-title">Kursy na żywo</h2><div class="panel-sub">Mnożnik wypłaty dla każdej drużyny</div></div>
-                <span style="font-size:9px;color:#9aa5b3;font-weight:750">DECIMAL ODDS</span>
+                <div><h2 class="panel-title">Aktualne kursy</h2><div class="panel-sub">Mnożnik wypłaty liczony na podstawie puli</div></div>
+                <span class="odds-live-label">DECIMAL ODDS</span>
               </div>
               <div class="panel-body">
                 <div class="team-cards">
@@ -493,7 +540,7 @@
 
             <section class="panel">
               <div class="panel-head">
-                <div><h2 class="panel-title">Podsumowanie puli</h2><div class="panel-sub">Automatyczny podział środków</div></div>
+                <div><h2 class="panel-title">Bilans puli</h2><div class="panel-sub">Kontrola stawek i prowizji organizatora</div></div>
               </div>
               <div class="panel-body">
                 <div class="calc-list">
@@ -512,7 +559,7 @@
 
             <section class="panel" id="settlementPanel">
               <div class="panel-head">
-                <div><h2 class="panel-title">Zamknięcie i rozliczenie</h2><div class="panel-sub">Zatwierdź wynik pojedynku</div></div>
+                <div><h2 class="panel-title">Rozliczenie pojedynku</h2><div class="panel-sub">Zamknij zakłady i wskaż zwycięską drużynę</div></div>
               </div>
               <div class="panel-body settle-body" id="settlementBody"></div>
             </section>
@@ -527,7 +574,7 @@
           <div class="panel-body"><div class="history-list" id="historyList"></div><div class="empty hidden" id="historyEmpty"><div class="empty-icon">◷</div><strong>Historia jest pusta</strong><span>Zakończ i rozlicz pojedynek, aby pojawił się tutaj.</span></div></div>
         </section>
 
-        <footer class="footer"><span>ARENA DESK · NARZĘDZIE OPERATORA</span><span>Dane przechowywane lokalnie w tej przeglądarce · Pamiętaj o kopii zapasowej</span></footer>
+        <footer class="footer"><span>KWADRATOWY CHAOS // ARENA CONTROL</span><span>TRYB RĘCZNY · BRAK INTEGRACJI Z MINECRAFTEM · KOPIA ZAPASOWA W MENU</span></footer>
       </div>
     </main>
   </div>
@@ -657,7 +704,7 @@
     document.getElementById("feePercent").disabled = r.status !== "open";
 
     setText("metricPool", fmt(total));
-    setText("metricBets", String(r.bets.length));
+    setText("metricBets", String(new Set(r.bets.map(function (bet) { return bet.nick.toLocaleLowerCase("pl-PL"); })).size));
     setText("metricFee", fmt(fee));
     setText("metricNet", fmt(net));
     setText("calcTeam1", fmt(t1));
@@ -686,7 +733,7 @@
     renderHistory();
     document.getElementById("newRoundTop").classList.toggle("hidden", !(r.status === "settled" || r.status === "void"));
     document.getElementById("newRoundTop").disabled = false;
-    document.getElementById("betCount").textContent = r.bets.length + " kupon" + (r.bets.length === 1 ? "" : r.bets.length < 5 ? "y" : "ów");
+    document.getElementById("betCount").textContent = r.bets.length + " zakład" + (r.bets.length === 1 ? "" : r.bets.length < 5 ? "y" : "ów");
   }
 
   function renderBets() {
