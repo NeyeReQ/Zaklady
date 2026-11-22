@@ -869,10 +869,21 @@
   function allocatePayouts(winningTeam) {
     var winningStake = sumTeam(winningTeam);
     var pool = payoutPool();
+    var allStakes = new Map();
+    current().bets.forEach(function (bet) {
+      var key = bet.nick.toLocaleLowerCase("pl-PL");
+      allStakes.set(key, (allStakes.get(key) || 0) + bet.amount);
+    });
     var rows = aggregateBets(winningTeam).map(function (player, index) {
       var exact = pool * player.stake / winningStake;
       var base = Math.floor(exact);
-      return { nick: player.nick, stake: player.stake, payout: base, remainder: exact - base, index: index };
+      return {
+        nick: player.nick,
+        stake: allStakes.get(player.nick.toLocaleLowerCase("pl-PL")) || player.stake,
+        payout: base,
+        remainder: exact - base,
+        index: index
+      };
     });
     var assigned = rows.reduce(function (sum, row) { return sum + row.payout; }, 0);
     var remaining = pool - assigned;
